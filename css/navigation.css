@@ -4,6 +4,12 @@ nav ul {
   padding: 0;
   background-color: #FFA000;
   text-align: center;
+
+  width: 35%;
+  margin: 0 auto;
+  border: none;
+  border-radius: 0px 0px 50px 50px;
+
 }
 
 nav ul li {
@@ -12,9 +18,17 @@ nav ul li {
 
 .dropdown-content {
   margin-top: 5px;
+  background: transparent;
+  box-shadow: none;
 }
 
 .MenuButton {
+
+  /* Apvalinimas*/
+
+  border-radius: 20px 20px 20px 20px;
+  margin-bottom: 5px;
+  /* Apvalinimas*/
   background-color: #FFA000;
   border: none;
   color: white;
@@ -27,12 +41,11 @@ nav ul li {
   cursor: pointer;
   outline: none;
 }
-nav{
-  border-bottom: 1px solid #dd8b00;
-}
+
 /* Dropdown Button */
 
 .dropbtn {
+  font-weight: bold;
   width: 160px;
   padding: 10px 0;
   background-color: #FFA000;
@@ -61,9 +74,7 @@ nav{
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 

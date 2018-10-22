@@ -303,7 +303,7 @@ function mouseWheel(event) {
 
 function tableCreate() {
 
-  var outputWindow = document.getElementsByClassName("DragElementBody")[0];
+  var outputWindow = document.getElementsByClassName("DragElementContent")[0];
   $("#OutputWindow table").remove();
   var body = document.body,
     tbl = document.createElement('table');
@@ -311,7 +311,7 @@ function tableCreate() {
 
   var tr = tbl.insertRow();
   var td = tr.insertCell();
-  td.appendChild(document.createTextNode("G"));
+  td.appendChild(document.createTextNode("G: "));
   td.setAttribute('rowspan', vertices.length + 1);
 
 

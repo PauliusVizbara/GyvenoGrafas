@@ -1,18 +1,21 @@
 .DragElementBody {
   position: absolute;
   z-index: 9;
-  border: 1px solid black;
+  border: 1px solid #FFA000;
   text-align: center;
-  resize: both;
-  overflow: auto;
+  overflow: hidden;
   background-color: white;
-  resize: both;
-  overflow: auto;
   min-width: 200px;
   min-height: 80px;
+  border-radius: 20px 20px 10px 10px;
 }
 
+.DragElementContent{
+  resize: both;
+  overflow: auto;
+}
 .DragElementAnchor {
+  font-weight: bold;
   text-align: left;
   padding: 10px;
   padding-left: 30px;
