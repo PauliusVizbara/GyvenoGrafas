@@ -22,47 +22,41 @@
 
 <body>
 
-  <!-- Draggable DIV -->
-  <!--<div style="width:1000px;height:1000px" >
-    <div class="siaipDiv">
-    </div>
-  </div>-->
-
-  <div style="top:100px;left:20px" class="DragElementBody" id="G-Output">
+  <div style="top:20px;left:20px" class="DragElementBody" id="G-Output">
     <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
     <div class="DragElementAnchor Unselectable" id="G-Output-mover"> G-Matrix </div>
     <div class="DragElementContent Unselectable">
-
     </div>
   </div>
 
-
-  <div style="top:250px;left:20px" class="DragElementBody" id="G-UserInput">
+<!--
+  <div style="top:500px;left:20px;min-width:300px;" class="DragElementBody" id="G-UserInput">
     <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
-    <button style="margin-right:50px" type="button" class="CloseButton Unselectable" onclick="createGraphFromGInput()"> x </button>
+    <button style="margin-right:50px" type="button" class="CloseButton Unselectable" onclick="createGraphFromGInput()"> + </button>
     <div class="DragElementAnchor Unselectable" id="G-UserInput-mover"> G-Matrix input </div>
-    <div class="DragElementContent">
+    <div class="DragElementContent Unselectable">
       <textarea rows="4" cols="50">1 2 3</textarea>
     </div>
   </div>
 
-  <div style="top:100px;left:300px" class="DragElementBody" id="FreePaintOptions">
+  <div style="top:20px;left:300px;" class="DragElementBody" id="FreePaintOptions">
     <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
     <div class="DragElementAnchor Unselectable" id="FreePaintOptions-mover"> Paint </div>
-    <div class="DragElementContent Unselectable">
+    <div class="DragElementContent Unselectable" style="resize:none">
       <label class="switch">
         <input type="checkbox" onchange="toggleFreePaint()">
         <span class="slider round"></span>
       </label>
+      <button style="border-radius: 0;margin-bottom:5px;" class="MenuButton Unselectable" onclick="resetFreePaint()"> Reset </button>
     </div>
-  </div>
+  </div>-->
 
   <nav>
     <ul class="Unselectable ">
       <li>
-        <div class="dropdown Unselectable ">
+        <div class="dropdown Unselectable">
           <button onclick="showDropdown(0) " class="dropbtn Unselectable "> Commands </button>
-          <div id="myDropdown " class="dropdown-content ">
+          <div id="myDropdown " class="dropdown-content">
             <button class="MenuButton Unselectable " id="AddVertexButton"> Add a vertex </button>
             <button class="MenuButton Unselectable " id="GMatrixUserInput">Enter G Matrix </button>
             <a href="# ">Link 3</a>

@@ -10,9 +10,8 @@ var connections = [];
 var mousePressedx;
 var mousePressedy;
 var G = [];
-var scrollSpeed = 3;
+var scrollSpeed = 0.05;
 var zoom = 1.00;
-var sensitivity = 0.25;
 var verticeDeleteButton;
 var drawnLines = [];
 var freePaintMode = false;
@@ -47,30 +46,32 @@ function display_Gmatrix() {
 }
 
 function addNewVertex() {
-  var x = Math.floor(Math.random() * 500) + 20;
-  var y = Math.floor(Math.random() * 500) + 20;
-  var vertex = new Vertex(vertices.length, x, y);
-  vertices.push(vertex);
+  var spawnedNear = false;
+  var count = 0;
+  var x;
+  var y;
+  while (count < 100) {
+    x = Math.floor(Math.random() * window.innerWidth/2 ) + window.innerWidth / 2 - 50;
+    y = Math.floor(Math.random() * window.innerHeight/2) + window.innerHeight / 2 - 50;
+    for (var i = 0; i < vertices.length; i++) {
+      if (dist(x, y, vertices[i].x, vertices[i].y) <= radius * 2 + 5) {
+        spawnedNear = true;
+      }
+    }
 
-}
-
-function setup() {
-  // Create canvas using width/height of window.
-
-
-  canvas = createCanvas(window.innerWidth, window.innerHeight);
-  noStroke();
-  ellipseMode(RADIUS);
-
-  var x = window.innerWidth / 3;
-  var y = window.innerHeight / 2;
-  for (var i = 0; i < 5; i++) {
-    var vertex = new Vertex(i, x, y);
-    vertices.push(vertex);
-    x += 50;
+    if ( !spawnedNear) {
+      console.log(count);
+      var vertex = new Vertex(vertices.length, x, y);
+      vertices.push(vertex);
+      return;
+    }
+    count++;
   }
 
+
 }
+
+
 
 function drawVertices() {
   for (var i = 0; i < vertices.length; i++) {
@@ -93,10 +94,31 @@ function drawConnections() {
   }
 }
 
+function setup() {
+  // Create canvas using width/height of window.
 
+
+  canvas = createCanvas(window.innerWidth, window.innerHeight);
+  noStroke();
+  ellipseMode(RADIUS);
+
+  var x = window.innerWidth / 3;
+  var y = window.innerHeight / 2;
+  for (var i = 0; i < 5; i++) {
+    var vertex = new Vertex(i, x, y);
+    vertices.push(vertex);
+    x += 100;
+  }
+
+}
+
+$(window).resize(function() {
+  canvas = createCanvas(window.innerWidth, window.innerHeight);
+});
 
 // Draw on the canvas.
 function draw() {
+
   background('#fff');
 
 
@@ -114,7 +136,7 @@ function draw() {
 
   if (drawnLines.length > 0) {
     stroke("#FF0000");
-    strokeWeight(10);
+    strokeWeight(4);
     for (var i = 0; i < drawnLines.length; i += 4) {
       line(drawnLines[i], drawnLines[i + 1], drawnLines[i + 2], drawnLines[i + 3]);
     }
@@ -142,15 +164,15 @@ function pressedOnALine(firstVertex, secondVertex, index) {
   return false;
 }
 
+function resetFreePaint() {
+  drawnLines = [];
+}
 
-function toggleFreePaint(){
+function toggleFreePaint() {
 
-
-  if ( freePaintMode){
-    drawnLines = [];
-  }
   freePaintMode = !freePaintMode;
 }
+
 function createDeleteConnectionButton(x, y, index) {
 
   verticeDeleteButton = new VerticeDeleteButton(index, x, y);
@@ -170,8 +192,10 @@ function deleteConnection(index) {
 
 // Run when the mouse/touch is down.
 function mousePressed() {
+  mousePressedx = mouseX;
+  mousePressedy = mouseY;
 
-  if ( freePaintMode) return;
+  if (freePaintMode) return;
 
   resetConnectionColors();
 
@@ -179,19 +203,14 @@ function mousePressed() {
     deleteConnection(verticeDeleteButton.index);
     verticeDeleteButton = null;
     return;
-
   }
+
   verticeDeleteButton = null;
 
   for (var i = 0; i < connections.length; i++) {
-    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {
-      /*var closeButtonX = Math.abs(connections[i].firstVertexIndex.x - connections[i].secondVertexIndex.x);
-      var closeButtonY = Math.abs(connections[i].firstVertexIndex.y - connections[i].secondVertexIndex.y);
-      createDeleteConnectionButton(closeButtonX, closeButtonY, 0);*/
-    }
+    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {}
   }
-  mousePressedx = mouseX;
-  mousePressedy = mouseY;
+
 
   if (activeVertexIndex != null) {
     for (var i = 0; i < vertices.length; i++) {
@@ -204,7 +223,7 @@ function mousePressed() {
             break;
           }
         }
-        if (!connectionExist) {
+        if (!connectionExist && vertices[activeVertexIndex].index != vertices[i].index) {
           resetConnectionColors();
           connections.push(new Connection(activeVertexIndex, i));
           vertices[activeVertexIndex].resetColor();
@@ -298,6 +317,7 @@ function mouseDragged() {
         }
       }
     }
+
     if (!isNearOtherVertice) {
       vertices[activeVertexIndex].x = mouseX;
       vertices[activeVertexIndex].y = mouseY;
@@ -306,8 +326,8 @@ function mouseDragged() {
     var scrollX = mousePressedx - mouseX;
     var scrollY = mousePressedy - mouseY;
 
-    scrollX *= sensitivity;
-    scrollY *= sensitivity;
+    scrollX *= scrollSpeed;
+    scrollY *= scrollSpeed;
 
     //var mouseDeltaX = (mouseX - mousePressedx) / scrollSpeed;
     //var mouseDeltaY = (mouseY - mousePressedy) / scrollSpeed;
@@ -317,9 +337,9 @@ function mouseDragged() {
       vertices[i].y += scrollY;
     }
 
-    for (var i = 0; i < drawnLines.length; i+=2) {
+    for (var i = 0; i < drawnLines.length; i += 2) {
       drawnLines[i] += scrollX;
-      drawnLines[i+1] += scrollY;
+      drawnLines[i + 1] += scrollY;
     }
 
 
