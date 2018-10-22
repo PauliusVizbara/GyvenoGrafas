@@ -1,0 +1,89 @@
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #FFA000;
+  text-align: center;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+.dropdown-content {
+  margin-top: 5px;
+}
+
+.MenuButton {
+  background-color: #FFA000;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+}
+nav{
+  border-bottom: 1px solid #dd8b00;
+}
+/* Dropdown Button */
+
+.dropbtn {
+  width: 160px;
+  padding: 10px 0;
+  background-color: #FFA000;
+  color: white;
+  outline: none;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+
+.dropbtn:hover, .dropbtn:focus, .MenuButton:hover, .MenuButton:focus {
+  background-color: #ee9500;
+}
+
+/* The container <div> - needed to position the dropdown content */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+
+.dropdown-content a:hover {
+  background-color: #ddd
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
+.show {
+  display: block;
+}

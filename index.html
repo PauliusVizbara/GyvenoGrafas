@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <!--<link rel="stylesheet" type="text/css" href="css/navigation2.css">-->
+  <link rel="stylesheet" type="text/css" href="css/navigation.css">
+  <link rel="stylesheet" type="text/css" href="css/draggable.css">
+  <script src="p5/jquery-3.3.1.min.js"></script>
+  <script src="p5/p5.js"></script>
+  <script src="p5/Vertex.js"></script>
+  <script src="p5/Connection.js"></script>
+  <script src="p5/main.js"></script>
+  <script src="JavaScript.js"></script>
+
+  <!--<script src="p5/sketch2.js"></script> -->
+
+
+</head>
+
+<body>
+
+  <!-- Draggable DIV -->
+  <!--<div style="width:1000px;height:1000px" >
+
+
+
+    <div class="siaipDiv">
+
+    </div>
+  </div>-->
+
+  <div style="top:100px;left:20px" class="DragElementBody" id="G-Output">
+    <button type="button" class="CloseButton"  onclick="document.body.removeChild(this.parentNode)"> X </button>
+    <div class="DragElementAnchor" id="G-Output-mover"> G-Matrix </div>
+  </div>
+
+  <div id="myModal " class="modal ">
+
+    <div class="modal-content ">
+      <div class="modal-header ">
+        <span class="close ">&times;</span>
+        <h2>Modal Header</h2>
+      </div>
+      <textarea rows="4 " cols="50 ">
+At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
+</textarea>
+      <div class="modal-body ">
+        <p>Some text in the Modal Body</p>
+        <p>Some other text...</p>
+      </div>
+      <div class="modal-footer ">
+        <h3>Modal Footer</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <nav>
+    <ul class="Unselectable ">
+      <li>
+        <div class="dropdown Unselectable ">
+          <button onclick="showDropdown(0) " class="dropbtn Unselectable "> Commands </button>
+          <div id="myDropdown " class="dropdown-content ">
+            <button class="MenuButton Unselectable " id="AddVertexButton"> Add a vertex </button>
+            <button class="MenuButton Unselectable " id="GMatrixUserInput">Enter G Matrix </button>
+            <a href="# ">Link 3</a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="dropdown ">
+          <button onclick="showDropdown(1) " class="dropbtn Unselectable "> Matrixes </button>
+          <div class="dropdown-content Unselectable ">
+            <button class="MenuButton Unselectable " id="GMatrixOutput"> G Matrix </button>
+            <a href="# ">Link 2</a>
+            <a href="# ">Link 3</a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="dropdown ">
+          <button onclick="showDropdown(2) " class="dropbtn Unselectable "> Algorithms </button>
+          <div class="dropdown-content Unselectable ">
+            <button class="MenuButton Unselectable " id="GMatrixOutput ">Enter G Matrix </button>
+            <a href="# ">Link 2</a>
+            <a href="# ">Link 3</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
+  <!--<div id="OutputWindow ">
+
+
+    <button class="CloseButton ">X</button>
+
+  </div>-->
+
+</body>
+
+
+</html>
