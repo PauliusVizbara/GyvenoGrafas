@@ -13,7 +13,7 @@
 .DragElementContent{
   resize: both;
   overflow: auto;
-  min-width: 200px;
+  min-width: 20px;
   min-height: 80px;
 }
 .DragElementAnchor {
