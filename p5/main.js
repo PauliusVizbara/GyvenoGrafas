@@ -13,6 +13,7 @@ var G = [];
 var scrollSpeed = 3;
 var zoom = 1.00;
 var sensitivity = 0.25;
+var verticeDeleteButton;
 
 window.onload = function() {
   document.getElementById("AddVertexButton").addEventListener('click', addNewVertex);
@@ -20,7 +21,7 @@ window.onload = function() {
 
   // Draggable
   dragElement(document.getElementById("G-Output"));
-
+  dragElement(document.getElementById("G-UserInput"));
   //Modal
   var modal = document.getElementById('myModal');
 
@@ -113,10 +114,11 @@ function drawConnections() {
   }
 }
 
+
+
 // Draw on the canvas.
 function draw() {
   background('#fff');
-
 
   if (connections.length > 0) {
     drawConnections();
@@ -127,25 +129,33 @@ function draw() {
 
     drawVertices();
   }
+
+  if (verticeDeleteButton != null) verticeDeleteButton.draw();
 }
 
 
-function pressedOnALine(firstVertex, secondVertex) {
+function pressedOnALine(firstVertex, secondVertex, index) {
   var vertexA = vertices[firstVertex];
   var vertexB = vertices[secondVertex];
 
-  if ((mouseX < vertexA.x && mouseX > vertexB.x) || (mouseX < vertexB.x && mouseX > vertexA.x)) {
+  var midPointX = Math.abs(vertexA.x + vertexB.x) / 2;
+  var midPointY = Math.abs(vertexA.y + vertexB.y) / 2;
+  /*if ((mouseX < vertexA.x && mouseX > vertexB.x) || (mouseX < vertexB.x && mouseX > vertexA.x)) {
     if ((mouseY < vertexA.y && mouseY > vertexB.y) || (mouseY < vertexB.y && mouseY > vertexA.y)) {
-      return true;
+
     }
+  }*/
+
+  if (dist(mouseX, mouseY, midPointX, midPointY) < radius) {
+    createDeleteConnectionButton(midPointX, midPointY, index);
+    return true;
   }
   return false;
 }
 
 function createDeleteConnectionButton(x, y, index) {
 
-  ellipse(x, y, radius, radius);
-
+  verticeDeleteButton = new VerticeDeleteButton(index, x, y);
 }
 
 function resetConnectionColors() {
@@ -156,15 +166,27 @@ function resetConnectionColors() {
   }
 }
 
+function deleteConnection(index) {
+  connections.splice(index, index + 1);
+}
+
 // Run when the mouse/touch is down.
 function mousePressed() {
   resetConnectionColors();
+
+  if (verticeDeleteButton != null && dist(mouseX, mouseY, verticeDeleteButton.x, verticeDeleteButton.y) < radius - 5) {
+    deleteConnection(verticeDeleteButton.index);
+      verticeDeleteButton = null;
+    return;
+
+  }
+  verticeDeleteButton = null;
+
   for (var i = 0; i < connections.length; i++) {
-    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex)) {
-      console.log("hello");
-      var closeButtonX = Math.abs(connections[i].firstVertexIndex.x - connections[i].secondVertexIndex.x);
+    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {
+      /*var closeButtonX = Math.abs(connections[i].firstVertexIndex.x - connections[i].secondVertexIndex.x);
       var closeButtonY = Math.abs(connections[i].firstVertexIndex.y - connections[i].secondVertexIndex.y);
-      createDeleteConnectionButton(closeButtonX, closeButtonY, 0);
+      createDeleteConnectionButton(closeButtonX, closeButtonY, 0);*/
     }
   }
   mousePressedx = mouseX;
@@ -239,9 +261,6 @@ function mouseReleased() {
 // Run when the mouse/touch is dragging.
 function mouseDragged() {
 
-  if (mouseX > window.innerWidth / 3 * 2) {
-    return;
-  }
 
   var distanc = dist(mouseX, mouseY, mousePressedx, mousePressedy);
   if (distanc < radius && !mouseHasBeenDragged) {
@@ -292,7 +311,7 @@ function mouseDragged() {
   }
 
   // Prevent default functionality.
-  return false;
+  //return false;
 }
 
 function mouseWheel(event) {

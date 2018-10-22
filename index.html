@@ -13,6 +13,7 @@
   <script src="p5/Connection.js"></script>
   <script src="p5/main.js"></script>
   <script src="JavaScript.js"></script>
+  <script src="p5/VerticeDeleteButton.js"></script>
 
   <!--<script src="p5/sketch2.js"></script> -->
 
@@ -32,33 +33,24 @@
   </div>-->
 
   <div style="top:100px;left:20px" class="DragElementBody" id="G-Output">
-    <button type="button" class="CloseButton Unselectable"  onclick="document.body.removeChild(this.parentNode)"> x </button>
-    <div class="DragElementAnchor" id="G-Output-mover"> G-Matrix </div>
+    <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
+    <div class="DragElementAnchor Unselectable" id="G-Output-mover"> G-Matrix </div>
+    <div class="DragElementContent Unselectable">
+
+    </div>
+  </div>
+
+
+  <div style="top:250px;left:20px" class="DragElementBody" id="G-UserInput">
+    <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
+    <div class="DragElementAnchor Unselectable" id="G-UserInput-mover"> G-Matrix input </div>
     <div class="DragElementContent">
-
-    </div>
-  </div>
-
-  <div id="myModal" class="modal">
-
-    <div class="modal-content ">
-      <div class="modal-header ">
-        <span class="close ">&times;</span>
-        <h2>Modal Header</h2>
-      </div>
-      <textarea rows="4 " cols="50 ">
-At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
+      <textarea rows="4" cols="50">
+    1 2 3
 </textarea>
-      <div class="modal-body ">
-        <p>Some text in the Modal Body</p>
-        <p>Some other text...</p>
-      </div>
-      <div class="modal-footer ">
-        <h3>Modal Footer</h3>
-      </div>
     </div>
-
   </div>
+
 
   <nav>
     <ul class="Unselectable ">

@@ -1,6 +1,5 @@
 // Close the dropdown menu if the user clicks outside of it
 window.addEventListener("click", function(event) {
-  console.log("Hello there");
   if (!event.target.matches('.dropbtn') && !event.target.matches('.dropdown-content') && !event.target.matches('.MenuButton')) {
 
     hideAllDropdowns();

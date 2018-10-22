@@ -9,9 +9,9 @@ function Vertex(index, x, y) {
     return this.x + " " + this.y;
   };
 
-this.resetColor = function(){
- this.color = "#000";
-}
+  this.resetColor = function() {
+    this.color = "#000";
+  }
 
   this.draw = function() {
     noStroke();
@@ -22,13 +22,13 @@ this.resetColor = function(){
 
     //text(index+1, this.x, this.y-20);
     textSize(25);
-    var currentTextX = this.x + cos(this.angle*3.14/180);
-    var currentTextY = this.y + sin(this.angle*3.14/180);
+    var currentTextX = this.x + cos(this.angle * 3.14 / 180);
+    var currentTextY = this.y + sin(this.angle * 3.14 / 180);
     rectMode(CORNER);
     fill("#ffffff");
 
     textAlign(CENTER, CENTER);
-    text(index+1, this.x, this.y);
+    text(index + 1, this.x, this.y);
 
   }
 

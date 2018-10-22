@@ -4,13 +4,19 @@ nav ul {
   padding: 0;
   background-color: #FFA000;
   text-align: center;
-
   width: 35%;
   margin: 0 auto;
   border: none;
   border-radius: 0px 0px 50px 50px;
+  z-index: 30;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+margin: 0 auto;
 
 }
+
 
 nav ul li {
   display: inline-block;
