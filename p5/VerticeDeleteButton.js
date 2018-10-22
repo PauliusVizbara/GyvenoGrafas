@@ -6,7 +6,10 @@ function VerticeDeleteButton(index,x,y) {
   this.radius = radius-5;
   this.draw = function() {
     noStroke();
+    fill("#000");
+    ellipse(this.x, this.y, this.radius+2, this.radius+2);
     fill(this.color);
+
     ellipse(this.x, this.y, this.radius, this.radius);
 
     var topRightCornerX = (this.x+this.radius/2.5);

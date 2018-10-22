@@ -55,6 +55,7 @@ body{
 
 
 .MatrixTable{
+  float: left;
   box-shadow: none;
   margin:20px auto;
   font-size: 30px;

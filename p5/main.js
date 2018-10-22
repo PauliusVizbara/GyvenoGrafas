@@ -14,6 +14,8 @@ var scrollSpeed = 3;
 var zoom = 1.00;
 var sensitivity = 0.25;
 var verticeDeleteButton;
+var drawnLines = [];
+var freePaintMode = false;
 
 window.onload = function() {
   document.getElementById("AddVertexButton").addEventListener('click', addNewVertex);
@@ -22,32 +24,9 @@ window.onload = function() {
   // Draggable
   dragElement(document.getElementById("G-Output"));
   dragElement(document.getElementById("G-UserInput"));
+  dragElement(document.getElementById("FreePaintOptions"));
+
   //Modal
-  var modal = document.getElementById('myModal');
-
-  // Get the button that opens the modal
-  var btn = document.getElementById("GMatrixUserInput");
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-  // When the user clicks on the button, open the modal
-  btn.onclick = function() {
-    hideAllDropdowns();
-    modal.style.display = "block";
-
-  }
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-
 }
 
 
@@ -120,9 +99,10 @@ function drawConnections() {
 function draw() {
   background('#fff');
 
+
+
   if (connections.length > 0) {
     drawConnections();
-
   }
 
   if (vertices.length > 0) {
@@ -131,6 +111,15 @@ function draw() {
   }
 
   if (verticeDeleteButton != null) verticeDeleteButton.draw();
+
+  if (drawnLines.length > 0) {
+    stroke("#FF0000");
+    strokeWeight(10);
+    for (var i = 0; i < drawnLines.length; i += 4) {
+      line(drawnLines[i], drawnLines[i + 1], drawnLines[i + 2], drawnLines[i + 3]);
+    }
+  }
+
 }
 
 
@@ -153,6 +142,15 @@ function pressedOnALine(firstVertex, secondVertex, index) {
   return false;
 }
 
+
+function toggleFreePaint(){
+
+
+  if ( freePaintMode){
+    drawnLines = [];
+  }
+  freePaintMode = !freePaintMode;
+}
 function createDeleteConnectionButton(x, y, index) {
 
   verticeDeleteButton = new VerticeDeleteButton(index, x, y);
@@ -172,11 +170,14 @@ function deleteConnection(index) {
 
 // Run when the mouse/touch is down.
 function mousePressed() {
+
+  if ( freePaintMode) return;
+
   resetConnectionColors();
 
   if (verticeDeleteButton != null && dist(mouseX, mouseY, verticeDeleteButton.x, verticeDeleteButton.y) < radius - 5) {
     deleteConnection(verticeDeleteButton.index);
-      verticeDeleteButton = null;
+    verticeDeleteButton = null;
     return;
 
   }
@@ -222,11 +223,11 @@ function mousePressed() {
       if (distance < radius) {
         hasPressedOnVertex = true;
         activeVertexIndex = i;
-        vertices[i].color = "#ff0000";
+        vertices[i].color = "#ffA000";
 
         for (var j = 0; j < connections.length; j++) {
           if (connections[j].hasVertex(activeVertexIndex) != null) {
-            connections[j].color = "#ff0000";
+            connections[j].color = "#ffA000";
           }
         }
 
@@ -260,6 +261,14 @@ function mouseReleased() {
 }
 // Run when the mouse/touch is dragging.
 function mouseDragged() {
+
+  if (freePaintMode && mouseButton == LEFT) {
+    drawnLines.push(mouseX);
+    drawnLines.push(mouseY);
+    drawnLines.push(pmouseX);
+    drawnLines.push(pmouseY);
+    return;
+  }
 
 
   var distanc = dist(mouseX, mouseY, mousePressedx, mousePressedy);
@@ -308,6 +317,12 @@ function mouseDragged() {
       vertices[i].y += scrollY;
     }
 
+    for (var i = 0; i < drawnLines.length; i+=2) {
+      drawnLines[i] += scrollX;
+      drawnLines[i+1] += scrollY;
+    }
+
+
   }
 
   // Prevent default functionality.
@@ -320,10 +335,18 @@ function mouseWheel(event) {
   return false;
 }
 
+function createGraphFromGInput() {
+  var x = $("#G-UserInput textarea").val();
+  for (var i = 0; i < x.length; i++) {
+    console.log(i + ": " + x[i]);
+  }
+
+}
+
 function tableCreate() {
 
   var outputWindow = document.getElementsByClassName("DragElementContent")[0];
-  $("#OutputWindow table").remove();
+  $("#G-Output table").remove();
   var body = document.body,
     tbl = document.createElement('table');
   tbl.classList.add('MatrixTable');

@@ -24,11 +24,7 @@
 
   <!-- Draggable DIV -->
   <!--<div style="width:1000px;height:1000px" >
-
-
-
     <div class="siaipDiv">
-
     </div>
   </div>-->
 
@@ -43,14 +39,23 @@
 
   <div style="top:250px;left:20px" class="DragElementBody" id="G-UserInput">
     <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
+    <button style="margin-right:50px" type="button" class="CloseButton Unselectable" onclick="createGraphFromGInput()"> x </button>
     <div class="DragElementAnchor Unselectable" id="G-UserInput-mover"> G-Matrix input </div>
     <div class="DragElementContent">
-      <textarea rows="4" cols="50">
-    1 2 3
-</textarea>
+      <textarea rows="4" cols="50">1 2 3</textarea>
     </div>
   </div>
 
+  <div style="top:100px;left:300px" class="DragElementBody" id="FreePaintOptions">
+    <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
+    <div class="DragElementAnchor Unselectable" id="FreePaintOptions-mover"> Paint </div>
+    <div class="DragElementContent Unselectable">
+      <label class="switch">
+        <input type="checkbox" onchange="toggleFreePaint()">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
 
   <nav>
     <ul class="Unselectable ">
