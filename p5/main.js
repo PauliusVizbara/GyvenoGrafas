@@ -3,7 +3,6 @@
 var radius = 20;
 var activeVertexIndex;
 var mouseHasBeenDragged;
-var mouseHasElementToDrag;
 var hasSelected = false;
 var selectedIndex = null;
 var vertices = [];
@@ -209,7 +208,7 @@ function mousePressed() {
   verticeDeleteButton = null;
 
   for (var i = 0; i < connections.length; i++) {
-    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {}
+    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {};
   }
 
 
@@ -270,17 +269,19 @@ function mousePressed() {
 
 function mouseReleased() {
 
-  if ( !mouseHasElementToDrag){
-    return;
-  }
+
+
   if (mouseHasBeenDragged && activeVertexIndex != null) {
     resetConnectionColors();
     vertices[activeVertexIndex].resetColor();
     activeVertexIndex = null;
     mouseHasBeenDragged = false;
   }
+  else if ( mouseHasBeenDragged && activeVertexIndex == null){
+    mouseHasBeenDragged = false;
+  }
 
-    mouseHasElementToDrag = false;
+
 
 }
 // Run when the mouse/touch is dragging.
@@ -294,9 +295,7 @@ function mouseDragged() {
     return;
   }
 
-  if ( activeVertexIndex != null){
-    mouseHasElementToDrag = true;
-  }
+
   var distanc = dist(mouseX, mouseY, mousePressedx, mousePressedy);
   if (distanc < radius && !mouseHasBeenDragged) {
     mouseHasBeenDragged = false;
