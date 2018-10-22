@@ -208,7 +208,9 @@ function mousePressed() {
   verticeDeleteButton = null;
 
   for (var i = 0; i < connections.length; i++) {
-    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {};
+    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {
+      return;
+    };
   }
 
 
