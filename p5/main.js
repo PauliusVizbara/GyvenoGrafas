@@ -50,7 +50,7 @@ function addNewVertex() {
   var count = 0;
   var x;
   var y;
-  while (count < 100) {
+  while (count < 100000) {
     x = Math.floor(Math.random() * window.innerWidth/2 ) + window.innerWidth / 2 - 50;
     y = Math.floor(Math.random() * window.innerHeight/2) + window.innerHeight / 2 - 50;
     for (var i = 0; i < vertices.length; i++) {
@@ -60,7 +60,7 @@ function addNewVertex() {
     }
 
     if ( !spawnedNear) {
-
+      console.log("Nauja virsune sukurta, naujas masyvo ilgis" + (vertices.length+1) )
       var vertex = new Vertex(vertices.length, x, y);
       vertices.push(vertex);
       return;
@@ -368,16 +368,25 @@ function createGraphFromGInput() {
   console.log("Iejom");
   var x = $("#G-UserInput textarea").val();
   var lines = x.split('\n');
-  var vertexCount = lines.length;
+
+var vertexCount = 0;
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].split(' ');
+    for (var j = 0; j < line.length; j++) {
+      if ( line[j] > vertexCount) vertexCount = line[j];
+    }
+  }
+
   if (vertexCount == 0) return;
   console.log("Praejom");
   vertices = [];
   connections = [];
 
-  for (var i = 0; i < lines.length; i++) {
+  for (var i = 0; i < vertexCount; i++) {
     console.log("KuriamNauja");
    addNewVertex();
   }
+
   for (var i = 0; i < lines.length; i++) {
     var GRow = lines[i].split(' ');
     for (var j = 0; j < GRow.length; j++) {
