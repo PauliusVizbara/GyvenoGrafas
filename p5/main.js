@@ -187,7 +187,7 @@ function resetConnectionColors() {
 }
 
 function deleteConnection(index) {
-  connections.splice(index, index + 1);
+  connections.splice(index, 1);
 }
 
 // Run when the mouse/touch is down.
