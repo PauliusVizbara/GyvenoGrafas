@@ -3,7 +3,6 @@ window.addEventListener("click", function(event) {
 
   if (!event.target.matches('.dropbtn') && !event.target.matches('.dropdown-content') && !event.target.matches('.MenuButton')) {
     hideAllDropdowns();
-      console.log("gotem");
   }
 });
 

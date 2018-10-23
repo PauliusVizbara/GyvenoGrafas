@@ -60,7 +60,7 @@ function addNewVertex() {
     }
 
     if ( !spawnedNear) {
-      console.log(count);
+
       var vertex = new Vertex(vertices.length, x, y);
       vertices.push(vertex);
       return;
@@ -88,7 +88,7 @@ function drawConnections() {
     var secondIndex = connections[i].secondVertexIndex;
 
     connections[i].assignPoints(vertices[firstIndex].x, vertices[firstIndex].y,
-      vertices[secondIndex].x, vertices[secondIndex].y);
+    vertices[secondIndex].x, vertices[secondIndex].y);
     connections[i].draw();
 
   }
@@ -227,7 +227,7 @@ function mousePressed() {
         }
         if (!connectionExist && vertices[activeVertexIndex].index != vertices[i].index) {
           resetConnectionColors();
-          connections.push(new Connection(activeVertexIndex, i));
+          connections.push(new Connection(activeVertexIndex, vertices[i].index));
           vertices[activeVertexIndex].resetColor();
           activeVertexIndex = null;
           return;
@@ -365,9 +365,32 @@ function mouseWheel(event) {
 }
 
 function createGraphFromGInput() {
+  console.log("Iejom");
   var x = $("#G-UserInput textarea").val();
-  for (var i = 0; i < x.length; i++) {
-    console.log(i + ": " + x[i]);
+  var lines = x.split('\n');
+  var vertexCount = lines.length;
+  if (vertexCount == 0) return;
+  console.log("Praejom");
+  vertices = [];
+  connections = [];
+
+  for (var i = 0; i < lines.length; i++) {
+    console.log("KuriamNauja");
+   addNewVertex();
+  }
+  for (var i = 0; i < lines.length; i++) {
+    var GRow = lines[i].split(' ');
+    for (var j = 0; j < GRow.length; j++) {
+      var connectionExists = false;
+      for (var k = 0; k < connections.length; k++) {
+        if (connections[k].hasVertices(i, GRow[j]-1)) {
+          connectionExists = true;
+          break;
+        }
+      }
+      if ( !connectionExists)
+      connections.push(new Connection(i, GRow[j]-1));
+    }
   }
 
 }
