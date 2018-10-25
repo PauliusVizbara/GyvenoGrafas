@@ -1,28 +1,36 @@
-*{
+* {
   font-family: "Segoe UI";
 }
 
-body{
- overflow: hidden;
+body {
+  overflow: hidden;
   padding: 0;
   margin: 0;
   background-color: white;
-
 }
-.p5Canvas{
+
+.p5Canvas {
   position: absolute;
 }
+
 .Unselectable {
-   user-select: none; -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  user-select: none;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
 
-#OutputWindow{
+#OutputWindow {
   position: fixed;
   right: 0;
   background-color: #222;
@@ -30,12 +38,15 @@ body{
   opacity: 1;
 }
 
-#OutputWindow *{
+#OutputWindow * {
   color: white;
 }
 
-.CloseButton{
-  font-size: 26px!important;
+.ResetButton{
+
+}
+.CloseButton {
+  font-size: 26px !important;
   border: none;
   display: inline-block;
   padding: 0px 14px;
@@ -45,37 +56,71 @@ body{
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
-  color: #fff!important;
+  color: #fff !important;
   background-color: transparent;
   position: absolute;
   right: 5px;
   top: 0;
 }
 
-
-
-.MatrixTable{
+.MatrixTable {
   float: left;
   box-shadow: none;
-  margin:20px auto;
+  margin: 20px auto;
   font-size: 30px;
-  border-collapse: collapse;;
+  border-collapse: collapse;
+  ;
   border: none;
 }
-.MatrixTable td{
+
+.MatrixTable td {
   text-align: center;
   padding-left: 10px;
 }
 
-
-.MatrixTable  td:first-child{
+.MatrixTable td:first-child {
   border: none;
   border-right: 1px solid black;
   margin-right: 10px;
 }
 
-.MatrixTable tr:first-child td{
+.MatrixTable tr:first-child td {
   font-size: 50px;
   padding-right: 20px;
   border: none;
+}
+
+.slidecontainer {
+  width: 50%;
+  /* Width of the outside container */
+}
+
+.rangeSlider {
+  margin: 0 auto;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #bfbfbf;
+  outline: none;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.rangeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #1e324e;
+  cursor: pointer;
+}
+
+.rangeSlider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #1e324e;
+  cursor: pointer;
 }

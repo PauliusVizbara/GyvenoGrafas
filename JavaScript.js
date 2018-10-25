@@ -30,6 +30,16 @@ function hideAllDropdowns() {
   }
 }
 
+function authorName(){
+  var authorText = document.createElement("p");
+  authorText.appendChild(document.createTextNode("Author: Paulius Vizbara"));
+  authorText.style.position = "absolute";
+  authorText.style.bottom = "5px";
+  authorText.style.right = "5px";
+  authorText.style.color = "#111111";
+  authorText.style.zindex = "50";
+  document.body.appendChild(authorText);
+}
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;

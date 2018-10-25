@@ -1,8 +1,12 @@
+
+/* Main color #1e324e */
+/* Side Color #131D2B */
+/* Another one #223a5a*/
 nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: #FFA000;
+  background-color: #1e324e;
   text-align: center;
   width: 35%;
   margin: 0 auto;
@@ -17,7 +21,9 @@ margin: 0 auto;
   min-width: 600px;
 }
 
-
+#FreePaintOptions button:hover {
+  color: #131D2B !important;
+}
 nav ul li {
   display: inline-block;
 }
@@ -32,10 +38,10 @@ nav ul li {
 
   /* Apvalinimas*/
 
-  border-radius: 20px 20px 20px 20px;
-  margin-bottom: 5px;
+  /*border-radius: 20px 20px 20px 20px;
+  margin-bottom: 5px;*/
   /* Apvalinimas*/
-  background-color: #FFA000;
+  background-color: #1e324e;
   border: none;
   color: white;
   text-align: center;
@@ -54,7 +60,7 @@ nav ul li {
   font-weight: bold;
   width: 160px;
   padding: 10px 0;
-  background-color: #FFA000;
+  background-color: #1e324e;
   color: white;
   outline: none;
   font-size: 20px;
@@ -65,7 +71,7 @@ nav ul li {
 /* Dropdown button on hover & focus */
 
 .dropbtn:hover, .dropbtn:focus, .MenuButton:hover, .MenuButton:focus {
-  background-color: #ee9500;
+  background-color: #223a5a;
 }
 
 /* The container <div> - needed to position the dropdown content */

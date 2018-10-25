@@ -15,6 +15,11 @@ var zoom = 1.00;
 var verticeDeleteButton;
 var drawnLines = [];
 var freePaintMode = false;
+var activeColor = "#1e324e";
+var drawGrid = false;
+var gridSize = 30;
+
+
 
 window.onload = function() {
   document.getElementById("AddVertexButton").addEventListener('click', addNewVertex);
@@ -24,10 +29,49 @@ window.onload = function() {
   dragElement(document.getElementById("G-Output"));
   dragElement(document.getElementById("G-UserInput"));
   dragElement(document.getElementById("FreePaintOptions"));
+  dragElement(document.getElementById("GridOptions"));
 
-  //Modal
+
+  var gridRangeSlider = document.getElementById("gridRangeSlider");
+  gridRangeSlider.oninput = function() {
+    gridSize = parseInt(this.value);
+  }
+
+  authorName();
+  
 }
 
+
+
+function toggleGrid() {
+  drawGrid = !drawGrid;
+}
+
+function flashbang(size) {
+  stroke("#444444");
+  strokeWeight(3);
+  for (var i = size; i < window.innerWidth; i += size) {
+    line(i, 0, i, window.innerHeight);
+  }
+
+  for (var i = size; i < window.innerHeight; i += size) {
+    line(0, i, winow.innerHeight, i);
+  }
+
+}
+
+function drawGridLines(size) {
+  stroke("#444444");
+  strokeWeight(1);
+  for (var i = size; i < window.innerWidth; i += size) {
+    line(i, 0, i, window.innerHeight);
+  }
+
+  for (var i = size; i < window.innerHeight; i += size) {
+    line(0, i, window.innerWidth, i);
+  }
+
+}
 
 function display_Gmatrix() {
   var vertexCount = vertices.length;
@@ -42,7 +86,7 @@ function display_Gmatrix() {
     G[i] = gRow;
 
   }
-  tableCreate();
+  G_tableCreate();
 }
 
 function addNewVertex() {
@@ -51,16 +95,15 @@ function addNewVertex() {
   var x;
   var y;
   while (count < 100000) {
-    x = Math.floor(Math.random() * window.innerWidth/2 ) + window.innerWidth / 2 - 50;
-    y = Math.floor(Math.random() * window.innerHeight/2) + window.innerHeight / 2 - 50;
+    x = Math.floor(Math.random() * window.innerWidth / 2) + window.innerWidth / 2 - 50;
+    y = Math.floor(Math.random() * window.innerHeight / 2) + window.innerHeight / 2 - 50;
     for (var i = 0; i < vertices.length; i++) {
       if (dist(x, y, vertices[i].x, vertices[i].y) <= radius * 2 + 5) {
         spawnedNear = true;
       }
     }
 
-    if ( !spawnedNear) {
-      console.log("Nauja virsune sukurta, naujas masyvo ilgis" + (vertices.length+1) )
+    if (!spawnedNear) {
       var vertex = new Vertex(vertices.length, x, y);
       vertices.push(vertex);
       return;
@@ -88,7 +131,7 @@ function drawConnections() {
     var secondIndex = connections[i].secondVertexIndex;
 
     connections[i].assignPoints(vertices[firstIndex].x, vertices[firstIndex].y,
-    vertices[secondIndex].x, vertices[secondIndex].y);
+      vertices[secondIndex].x, vertices[secondIndex].y);
     connections[i].draw();
 
   }
@@ -119,9 +162,11 @@ $(window).resize(function() {
 // Draw on the canvas.
 function draw() {
 
-  background('#fff');
+  background('#f9f9f9');
 
-
+  if (drawGrid) {
+    drawGridLines(gridSize);
+  }
 
   if (connections.length > 0) {
     drawConnections();
@@ -159,6 +204,10 @@ function pressedOnALine(firstVertex, secondVertex, index) {
 
   if (dist(mouseX, mouseY, midPointX, midPointY) < radius) {
     createDeleteConnectionButton(midPointX, midPointY, index);
+    if (activeVertexIndex != null) {
+      vertices[activeVertexIndex].color = "#000";
+      activeVertexIndex = null;
+    }
     return true;
   }
   return false;
@@ -207,11 +256,7 @@ function mousePressed() {
 
   verticeDeleteButton = null;
 
-  for (var i = 0; i < connections.length; i++) {
-    if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {
-      return;
-    };
-  }
+
 
 
   if (activeVertexIndex != null) {
@@ -244,17 +289,23 @@ function mousePressed() {
       if (distance < radius) {
         hasPressedOnVertex = true;
         activeVertexIndex = i;
-        vertices[i].color = "#ffA000";
-
+        vertices[i].color = activeColor;
         for (var j = 0; j < connections.length; j++) {
           if (connections[j].hasVertex(activeVertexIndex) != null) {
-            connections[j].color = "#ffA000";
+            connections[j].color = activeColor;
           }
         }
 
       } else {
         vertices[i].color = "#000";
       }
+    }
+
+    if (!hasPressedOnVertex)
+    for (var i = 0; i < connections.length; i++) {
+      if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {
+        return;
+      };
     }
 
     if (!hasPressedOnVertex && activeVertexIndex != null) {
@@ -278,8 +329,7 @@ function mouseReleased() {
     vertices[activeVertexIndex].resetColor();
     activeVertexIndex = null;
     mouseHasBeenDragged = false;
-  }
-  else if ( mouseHasBeenDragged && activeVertexIndex == null){
+  } else if (mouseHasBeenDragged && activeVertexIndex == null) {
     mouseHasBeenDragged = false;
   }
 
@@ -288,6 +338,10 @@ function mouseReleased() {
 }
 // Run when the mouse/touch is dragging.
 function mouseDragged() {
+
+  if ($('.DragElementBody:hover').length != 0 && freePaintMode) {
+    return;
+  }
 
   if (freePaintMode && mouseButton == LEFT) {
     drawnLines.push(mouseX);
@@ -337,7 +391,8 @@ function mouseDragged() {
 
     scrollX *= scrollSpeed;
     scrollY *= scrollSpeed;
-
+ scrollX = -scrollX;
+    scrollY = -scrollY;
     //var mouseDeltaX = (mouseX - mousePressedx) / scrollSpeed;
     //var mouseDeltaY = (mouseY - mousePressedy) / scrollSpeed;
 
@@ -359,54 +414,62 @@ function mouseDragged() {
 }
 
 function mouseWheel(event) {
-  zoom -= sensitivity * event.delta;
+  /*zoom -= sensitivity * event.delta;*/
   //uncomment to block page scrolling
   return false;
 }
 
 function createGraphFromGInput() {
-  console.log("Iejom");
+
   var x = $("#G-UserInput textarea").val();
+
   var lines = x.split('\n');
 
-var vertexCount = 0;
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i] == "") {
+      lines.splice(i, 1);
+    }
+  }
+
+  var vertexCount = 0;
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i].split(' ');
     for (var j = 0; j < line.length; j++) {
-      if ( line[j] > vertexCount) vertexCount = line[j];
+      if (line[j] > vertexCount) vertexCount = line[j];
     }
   }
 
   if (vertexCount == 0) return;
-  console.log("Praejom");
   vertices = [];
   connections = [];
 
   for (var i = 0; i < vertexCount; i++) {
-    console.log("KuriamNauja");
-   addNewVertex();
+
+    addNewVertex();
   }
 
   for (var i = 0; i < lines.length; i++) {
     var GRow = lines[i].split(' ');
+    console.log("Heyy " + GRow.length);
     for (var j = 0; j < GRow.length; j++) {
       var connectionExists = false;
       for (var k = 0; k < connections.length; k++) {
-        if (connections[k].hasVertices(i, GRow[j]-1)) {
+        if (connections[k].hasVertices(i, GRow[j] - 1)) {
           connectionExists = true;
           break;
         }
       }
-      if ( !connectionExists)
-      connections.push(new Connection(i, GRow[j]-1));
+      if (!connectionExists)
+        connections.push(new Connection(i, GRow[j] - 1));
     }
   }
 
 }
 
-function tableCreate() {
+function G_tableCreate() {
 
-  var outputWindow = document.getElementsByClassName("DragElementContent")[0];
+  var outputWindow = document.getElementById("G-Output");
+  outputWindow.style.display = "block";
   $("#G-Output table").remove();
   var body = document.body,
     tbl = document.createElement('table');
@@ -434,5 +497,10 @@ function tableCreate() {
       td.appendChild(document.createTextNode(G[i][j] + 1));
     }
   }
-  outputWindow.appendChild(tbl);
+  outputWindow.getElementsByClassName("DragElementContent")[0].appendChild(tbl);
+}
+
+
+function hideElement(id) {
+  document.getElementById(id).style.display = "none";
 }

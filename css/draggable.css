@@ -1,21 +1,23 @@
 .DragElementBody {
   position: absolute;
   z-index: 9;
-  border: 1px solid #FFA000;
+  border: 1px solid #131D2B;
   text-align: center;
   overflow: hidden;
   background-color: white;
   min-width: 200px;
   min-height: 80px;
-  border-radius: 20px 20px 6px 6px;
+  /*border-radius: 20px 20px 6px 6px;*/
+  border-radius: 10px 10px 4px 4px;
 }
 
-.DragElementContent{
+.DragElementContent {
   resize: both;
   overflow: auto;
   min-width: 20px;
   min-height: 80px;
 }
+
 .DragElementAnchor {
   font-weight: bold;
   text-align: left;
@@ -23,24 +25,22 @@
   padding-left: 30px;
   cursor: move;
   z-index: 10;
-  background-color: #FFA000;
+  background-color: #1e324e;
   color: #fff;
-
 }
 
-
-.DragElementBody textarea{
+.DragElementBody textarea {
   width: 90%;
   min-height: 200px;
   border: none;
-  float:left;
+  float: left;
   outline: none;
   resize: none;
   overflow: hidden;
 }
 
-
 /* switchas */
+
 .switch {
   position: relative;
   display: inline-block;
@@ -53,6 +53,10 @@
   opacity: 0;
   width: 0;
   height: 0;
+}
+
+.CheckBoxSwitch{
+
 }
 
 .slider {
@@ -79,21 +83,22 @@
   transition: .4s;
 }
 
-input:checked + .slider {
-  background-color: #ffb944;
+input:checked+.slider {
+  background-color: #131D2B;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #ffb944;
+input:focus+.slider {
+  box-shadow: 0 0 1px #131D2B;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
 /* Rounded sliders */
+
 .slider.round {
   border-radius: 34px;
 }

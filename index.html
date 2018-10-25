@@ -22,68 +22,85 @@
 <body>
 
   <div style="top:20px;left:20px" class="DragElementBody" id="G-Output">
-    <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
+    <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
     <div class="DragElementAnchor Unselectable" id="G-Output-mover"> G-Matrix </div>
-    <div style="min-width: 300px"class="DragElementContent Unselectable">
+    <div style="min-width: 300px;overflow:auto;" class="DragElementContent Unselectable">
     </div>
   </div>
 
-
-  <div style="top:80px;left:800px;min-width:300px;" class="DragElementBody" id="G-UserInput">
-    <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
-    <button style="margin-right:50px" type="button" class="CloseButton Unselectable" onclick="createGraphFromGInput()"> + </button>
-    <div class="DragElementAnchor Unselectable" id="G-UserInput-mover"> G-Matrix input </div>
-    <div class="DragElementContent Unselectable">
-      <textarea rows="4" cols="50">1 2 3</textarea>
+  <div style="top:20px;left:20px" class="DragElementBody" id="GridOptions">
+    <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
+    <div class="DragElementAnchor Unselectable" id="GridOptions-mover"> Grid </div>
+    <div style="min-width: 300px;resize:none;" class="DragElementContent Unselectable">
+      <div style="width:40%;float:right;"> <label class="switch">
+        <input type="checkbox" onchange="toggleGrid()">
+        <span class="slider round"></span>
+      </div>
+      </label>
+        <div style="padding-top: 37px;padding-left: 29px;" class="slidecontainer">
+          <input type="range" min="8" max="120" value="40" class="rangeSlider" id="gridRangeSlider">
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div style="top:20px;left:350px;" class="DragElementBody" id="FreePaintOptions">
-    <button type="button" class="CloseButton Unselectable" onclick="document.body.removeChild(this.parentNode)"> x </button>
-    <div class="DragElementAnchor Unselectable" id="FreePaintOptions-mover"> Paint </div>
-    <div class="DragElementContent Unselectable" style="resize:none">
-      <label class="switch">
+
+    <div style="top:80px;left:800px;min-width:300px;" class="DragElementBody" id="G-UserInput">
+      <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
+      <button style="margin-right:50px" type="button" class="CloseButton Unselectable" onclick="createGraphFromGInput()"> + </button>
+      <div class="DragElementAnchor Unselectable" id="G-UserInput-mover"> G-Matrix input </div>
+      <div class="DragElementContent Unselectable">
+        <textarea rows="4" cols="50">1 2 3</textarea>
+      </div>
+    </div>
+
+    <div style="top:20px;left:350px;" class="DragElementBody" id="FreePaintOptions">
+      <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
+      <div class="DragElementAnchor Unselectable" id="FreePaintOptions-mover"> Paint </div>
+      <div class="DragElementContent Unselectable" style="resize:none">
+
+          <label style="width:40%;float:right;margin:23px 8px 0px 0px" class="switch">
         <input type="checkbox" onchange="toggleFreePaint()">
         <span class="slider round"></span>
       </label>
-      <button style="border-radius: 0;margin-bottom:5px;" class="MenuButton Unselectable" onclick="resetFreePaint()"> Reset </button>
+
+        <button style="border-radius: 0;padding:0;margin:23px 0px;width:50%;font-size: 24px;background-color:transparent;color:#1e324e" class="MenuButton Unselectable" onclick="resetFreePaint()"> Reset </button>
+      </div>
     </div>
-  </div>
 
-  <nav>
-    <ul class="Unselectable ">
-      <li>
-        <div class="dropdown Unselectable">
-          <button onclick="showDropdown(0) " class="dropbtn Unselectable "> Commands </button>
-          <div id="myDropdown " class="dropdown-content">
-            <button class="MenuButton Unselectable " id="AddVertexButton"> Add a vertex </button>
-            <button class="MenuButton Unselectable " id="GMatrixUserInput">Enter G Matrix </button>
+    <nav>
+      <ul class="Unselectable ">
+        <li>
+          <div class="dropdown Unselectable">
+            <button onclick="showDropdown(0) " class="dropbtn Unselectable "> Commands </button>
+            <div id="myDropdown " class="dropdown-content">
+              <button class="MenuButton Unselectable " id="AddVertexButton"> Add a vertex </button>
+              <button class="MenuButton Unselectable " id="GMatrixUserInput">Enter G Matrix </button>
 
+            </div>
           </div>
-        </div>
-      </li>
-      <li>
-        <div class="dropdown ">
-          <button onclick="showDropdown(1) " class="dropbtn Unselectable "> Matrixes </button>
-          <div class="dropdown-content Unselectable ">
-            <button class="MenuButton Unselectable " id="GMatrixOutput"> G Matrix </button>
+        </li>
+        <li>
+          <div class="dropdown ">
+            <button onclick="showDropdown(1) " class="dropbtn Unselectable "> Matrixes </button>
+            <div class="dropdown-content Unselectable ">
+              <button class="MenuButton Unselectable " id="GMatrixOutput"> G Matrix </button>
 
+            </div>
           </div>
-        </div>
-      </li>
-      <li>
-        <div class="dropdown ">
-          <button onclick="showDropdown(2) " class="dropbtn Unselectable "> Algorithms </button>
-          <div class="dropdown-content Unselectable ">
-            <button class="MenuButton Unselectable " id="GMatrixOutput "> WIP  </button>
+        </li>
+        <li>
+          <div class="dropdown ">
+            <button onclick="showDropdown(2) " class="dropbtn Unselectable "> Algorithms </button>
+            <div class="dropdown-content Unselectable ">
+              <button class="MenuButton Unselectable " id="GMatrixOutput "> WIP  </button>
 
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
 
-  </nav>
-  <!--<div id="OutputWindow ">
+    </nav>
+    <!--<div id="OutputWindow ">
 
 
     <button class="CloseButton ">X</button>
