@@ -15,7 +15,8 @@ var zoom = 1.00;
 var verticeDeleteButton;
 var drawnLines = [];
 var freePaintMode = false;
-var activeColor = "#1e324e";
+var activeColor = "#ffa000";
+var backgroundColor ="#f9f9f9";
 var drawGrid = false;
 var gridSize = 30;
 
@@ -38,7 +39,7 @@ window.onload = function() {
   }
 
   authorName();
-  
+
 }
 
 
@@ -144,7 +145,7 @@ function setup() {
   canvas = createCanvas(window.innerWidth, window.innerHeight);
   noStroke();
   ellipseMode(RADIUS);
-
+  frameRate(144);
   var x = window.innerWidth / 3;
   var y = window.innerHeight / 2;
   for (var i = 0; i < 5; i++) {
@@ -162,7 +163,7 @@ $(window).resize(function() {
 // Draw on the canvas.
 function draw() {
 
-  background('#f9f9f9');
+  background(backgroundColor);
 
   if (drawGrid) {
     drawGridLines(gridSize);
@@ -182,9 +183,11 @@ function draw() {
   if (drawnLines.length > 0) {
     stroke("#FF0000");
     strokeWeight(4);
+
     for (var i = 0; i < drawnLines.length; i += 4) {
       line(drawnLines[i], drawnLines[i + 1], drawnLines[i + 2], drawnLines[i + 3]);
     }
+
   }
 
 }

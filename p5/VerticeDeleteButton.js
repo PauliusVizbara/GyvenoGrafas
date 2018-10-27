@@ -1,6 +1,5 @@
 function VerticeDeleteButton(index,x,y) {
   this.index = index;
-  this.color = "#FFA000";
   this.x = x;
   this.y = y;
   this.radius = radius-5;
@@ -8,7 +7,7 @@ function VerticeDeleteButton(index,x,y) {
     noStroke();
     fill("#000");
     ellipse(this.x, this.y, this.radius+2, this.radius+2);
-    fill(this.color);
+    fill(activeColor);
 
     ellipse(this.x, this.y, this.radius, this.radius);
 

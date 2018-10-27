@@ -35,7 +35,7 @@ function Connection(firstVertexIndex, secondVertexIndex) {
     strokeWeight(3);
     line(this.x1, this.y1, this.x2, this.y2);
 
-
+    fill(backgroundColor);
     var midPointX = Math.abs(this.x1 +this.x2) / 2;
     var midPointY = Math.abs(this.y1 + this.y2) / 2;
     ellipse(midPointX, midPointY,3,3);
