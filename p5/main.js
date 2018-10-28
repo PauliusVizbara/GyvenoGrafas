@@ -32,13 +32,6 @@ window.onload = function() {
   dragElement(document.getElementById("FreePaintOptions"));
   dragElement(document.getElementById("GridOptions"));
 
-
-  var gridRangeSlider = document.getElementById("gridRangeSlider");
-  gridRangeSlider.oninput = function() {
-    gridSize = parseInt(this.value);
-    createGridPoints();
-  }
-
   authorName();
 
 }
@@ -427,14 +420,15 @@ function mouseDragged() {
         vertices[activeVertexIndex].y = mouseY;
       }
     }
+
   } else if (mouseButton == "center") {
-    var scrollX = mousePressedx - mouseX;
-    var scrollY = mousePressedy - mouseY;
+    var scrollX = mouseX - mousePressedx;
+    var scrollY = mouseY - mousePressedy;
 
     scrollX *= scrollSpeed;
     scrollY *= scrollSpeed;
-    scrollX = -scrollX;
-    scrollY = -scrollY;
+
+
     //var mouseDeltaX = (mouseX - mousePressedx) / scrollSpeed;
     //var mouseDeltaY = (mouseY - mousePressedy) / scrollSpeed;
 
