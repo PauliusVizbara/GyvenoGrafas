@@ -16,10 +16,10 @@ var verticeDeleteButton;
 var drawnLines = [];
 var freePaintMode = false;
 var activeColor = "#ffa000";
-var backgroundColor ="#f9f9f9";
+var backgroundColor = "#f9f9f9";
 var drawGrid = false;
 var gridSize = 30;
-
+var gridPoints = [];
 
 
 window.onload = function() {
@@ -36,6 +36,7 @@ window.onload = function() {
   var gridRangeSlider = document.getElementById("gridRangeSlider");
   gridRangeSlider.oninput = function() {
     gridSize = parseInt(this.value);
+    createGridPoints();
   }
 
   authorName();
@@ -43,21 +44,54 @@ window.onload = function() {
 }
 
 
+function createGridPoints() {
+  gridPoints = [];
+  for (var i = gridSize; i < window.innerWidth; i += gridSize) {
+
+    for (var j = gridSize; j < window.innerHeight; j += gridSize) {
+
+      gridPoints.push(new Point(i, j));
+    }
+  }
+
+  snapVertices();
+
+}
+
+function snapVertex(index) {
+    var maximumDistance = Math.sqrt(2 * Math.pow(gridSize / 2, 2));
+  for (var j = 0; j < gridPoints.length; j++) {
+    if (dist(mouseX, mouseY, gridPoints[j].x, gridPoints[j].y) <= maximumDistance) {
+      vertices[index].x = gridPoints[j].x;
+      vertices[index].y = gridPoints[j].y;
+      break;
+    }
+  }
+}
+
+function snapVertices() {
+  var maximumDistance = Math.sqrt(2 * Math.pow(gridSize / 2, 2));
+  console.log(gridPoints.length);
+
+  for (var i = 0; i < vertices.length; i++) {
+    for (var j = 0; j < gridPoints.length; j++) {
+      if (dist(vertices[i].x, vertices[i].y, gridPoints[j].x, gridPoints[j].y) <= maximumDistance) {
+        vertices[i].x = gridPoints[j].x;
+        vertices[i].y = gridPoints[j].y;
+        break;
+      }
+    }
+  }
+}
+
+function showPanel(id) {
+  var element = document.getElementById(id);
+  element.style.display = "block";
+}
 
 function toggleGrid() {
   drawGrid = !drawGrid;
-}
-
-function flashbang(size) {
-  stroke("#444444");
-  strokeWeight(3);
-  for (var i = size; i < window.innerWidth; i += size) {
-    line(i, 0, i, window.innerHeight);
-  }
-
-  for (var i = size; i < window.innerHeight; i += size) {
-    line(0, i, winow.innerHeight, i);
-  }
+  if (drawGrid) createGridPoints();
 
 }
 
@@ -96,8 +130,8 @@ function addNewVertex() {
   var x;
   var y;
   while (count < 100000) {
-    x = Math.floor(Math.random() * window.innerWidth / 2) + window.innerWidth / 2 - 50;
-    y = Math.floor(Math.random() * window.innerHeight / 2) + window.innerHeight / 2 - 50;
+    x = Math.floor(Math.random() * window.innerWidth/3) + window.innerWidth / 3;
+    y = Math.floor(Math.random() * window.innerHeight/3) + window.innerHeight / 3;
     for (var i = 0; i < vertices.length; i++) {
       if (dist(x, y, vertices[i].x, vertices[i].y) <= radius * 2 + 5) {
         spawnedNear = true;
@@ -305,11 +339,11 @@ function mousePressed() {
     }
 
     if (!hasPressedOnVertex)
-    for (var i = 0; i < connections.length; i++) {
-      if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {
-        return;
-      };
-    }
+      for (var i = 0; i < connections.length; i++) {
+        if (pressedOnALine(connections[i].firstVertexIndex, connections[i].secondVertexIndex, i)) {
+          return;
+        };
+      }
 
     if (!hasPressedOnVertex && activeVertexIndex != null) {
       resetConnectionColors();
@@ -385,8 +419,13 @@ function mouseDragged() {
     }
 
     if (!isNearOtherVertice) {
-      vertices[activeVertexIndex].x = mouseX;
-      vertices[activeVertexIndex].y = mouseY;
+      if (drawGrid) {
+        snapVertex(activeVertexIndex);
+
+      } else {
+        vertices[activeVertexIndex].x = mouseX;
+        vertices[activeVertexIndex].y = mouseY;
+      }
     }
   } else if (mouseButton == "center") {
     var scrollX = mousePressedx - mouseX;
@@ -394,7 +433,7 @@ function mouseDragged() {
 
     scrollX *= scrollSpeed;
     scrollY *= scrollSpeed;
- scrollX = -scrollX;
+    scrollX = -scrollX;
     scrollY = -scrollY;
     //var mouseDeltaX = (mouseX - mousePressedx) / scrollSpeed;
     //var mouseDeltaY = (mouseY - mousePressedy) / scrollSpeed;

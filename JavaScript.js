@@ -32,6 +32,7 @@ function hideAllDropdowns() {
 
 function authorName(){
   var authorText = document.createElement("p");
+  //authorText.classList.add("Unselectable");
   authorText.appendChild(document.createTextNode("Author: Paulius Vizbara"));
   authorText.style.position = "absolute";
   authorText.style.bottom = "5px";

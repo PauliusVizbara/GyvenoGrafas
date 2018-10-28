@@ -13,7 +13,7 @@
   <script src="p5/main.js"></script>
   <script src="JavaScript.js"></script>
   <script src="p5/VerticeDeleteButton.js"></script>
-
+  <script src="p5/Point.js"></script>
 
 
 
@@ -21,25 +21,22 @@
 
 <body>
 
-  <div style="top:20px;left:20px" class="DragElementBody" id="G-Output">
+  <div style="top:20px;left:20px;max-height:800px;" class="DragElementBody" id="G-Output">
     <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
     <div class="DragElementAnchor Unselectable" id="G-Output-mover"> G-Matrix </div>
     <div style="min-width: 300px;overflow:auto;" class="DragElementContent Unselectable">
     </div>
   </div>
 
-  <div style="top:20px;left:20px" class="DragElementBody" id="GridOptions">
+  <div style="top:20px;left:20px;min-width:140px" class="DragElementBody" id="GridOptions">
     <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
     <div class="DragElementAnchor Unselectable" id="GridOptions-mover"> Grid </div>
-    <div style="min-width: 300px;resize:none;" class="DragElementContent Unselectable">
-      <div style="width:40%;float:right;"> <label class="switch">
+    <div style="resize:none;" class="DragElementContent Unselectable">
+      <div> <label class="switch">
         <input type="checkbox" onchange="toggleGrid()">
         <span class="slider round"></span>
       </div>
       </label>
-        <div style="padding-top: 37px;padding-left: 29px;" class="slidecontainer">
-          <input type="range" min="8" max="120" value="40" class="rangeSlider" id="gridRangeSlider">
-        </div>
       </div>
     </div>
 
@@ -57,9 +54,10 @@
       <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
       <div class="DragElementAnchor Unselectable" id="FreePaintOptions-mover"> Paint </div>
       <div class="DragElementContent Unselectable" style="resize:none">
-
+<input type="color" onchange="changePaintColor()">
           <label style="width:40%;float:right;margin:23px 8px 0px 0px" class="switch">
         <input type="checkbox" onchange="toggleFreePaint()">
+
         <span class="slider round"></span>
       </label>
 
@@ -74,8 +72,9 @@
             <button onclick="showDropdown(0) " class="dropbtn Unselectable "> Commands </button>
             <div id="myDropdown " class="dropdown-content">
               <button class="MenuButton Unselectable " id="AddVertexButton"> Add a vertex </button>
-              <button class="MenuButton Unselectable " id="GMatrixUserInput">Enter G Matrix </button>
-
+              <button class="MenuButton Unselectable " onclick="showPanel('G-UserInput')" id="GMatrixUserInput">Enter G Matrix </button>
+              <button class="MenuButton Unselectable " onclick="showPanel('FreePaintOptions')" > Paint </button>
+              <button class="MenuButton Unselectable " onclick="showPanel('GridOptions')" > Grid </button>
             </div>
           </div>
         </li>
