@@ -21,14 +21,14 @@
 
 <body>
 
-  <div style="top:20px;left:20px;max-height:800px;" class="DragElementBody" id="G-Output">
+  <div style="top:20px;left:20px;max-height:800px;display:none;" class="DragElementBody" id="G-Output">
     <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
     <div class="DragElementAnchor Unselectable" id="G-Output-mover"> G-Matrix </div>
     <div style="min-width: 300px;overflow:auto;" class="DragElementContent Unselectable">
     </div>
   </div>
 
-  <div style="top:20px;left:20px;min-width:140px" class="DragElementBody" id="GridOptions">
+  <div style="top:20px;left:20px;min-width:140px;display:none;" class="DragElementBody" id="GridOptions">
     <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
     <div class="DragElementAnchor Unselectable" id="GridOptions-mover"> Grid </div>
     <div style="resize:none;" class="DragElementContent Unselectable">
@@ -41,7 +41,7 @@
     </div>
 
 
-    <div style="top:80px;left:800px;min-width:300px;" class="DragElementBody" id="G-UserInput">
+    <div style="top:80px;left:800px;min-width:300px;display:none;" class="DragElementBody" id="G-UserInput">
       <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
       <button style="margin-right:50px" type="button" class="CloseButton Unselectable" onclick="createGraphFromGInput()"> + </button>
       <div class="DragElementAnchor Unselectable" id="G-UserInput-mover"> G-Matrix input </div>
@@ -54,14 +54,15 @@
       <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
       <div class="DragElementAnchor Unselectable" id="FreePaintOptions-mover"> Paint </div>
       <div class="DragElementContent Unselectable" style="resize:none">
-<input type="color" onchange="changePaintColor()">
-          <label style="width:40%;float:right;margin:23px 8px 0px 0px" class="switch">
-        <input type="checkbox" onchange="toggleFreePaint()">
 
+        <label style="width:40%;float:right;margin:23px 8px 0px 0px" class="switch">
+        <input type="checkbox" onchange="toggleFreePaint()">
         <span class="slider round"></span>
       </label>
+        <button style="border-radius: 0;padding:0;margin:23px 0px;width:50%;font-size: 24px;background-color:transparent;color:#1e324e"
+        class="MenuButton Unselectable" onclick="resetFreePaint()"> Reset </button>
+        <input id="PaintColorPicker" style="width:50%;margin: 0px auto 20px" value="#ffa000" type="color" onchange="changePaintColor()">
 
-        <button style="border-radius: 0;padding:0;margin:23px 0px;width:50%;font-size: 24px;background-color:transparent;color:#1e324e" class="MenuButton Unselectable" onclick="resetFreePaint()"> Reset </button>
       </div>
     </div>
 
@@ -73,8 +74,8 @@
             <div id="myDropdown " class="dropdown-content">
               <button class="MenuButton Unselectable " id="AddVertexButton"> Add a vertex </button>
               <button class="MenuButton Unselectable " onclick="showPanel('G-UserInput')" id="GMatrixUserInput">Enter G Matrix </button>
-              <button class="MenuButton Unselectable " onclick="showPanel('FreePaintOptions')" > Paint </button>
-              <button class="MenuButton Unselectable " onclick="showPanel('GridOptions')" > Grid </button>
+              <button class="MenuButton Unselectable " onclick="showPanel('FreePaintOptions')"> Paint </button>
+              <button class="MenuButton Unselectable " onclick="showPanel('GridOptions')"> Grid </button>
             </div>
           </div>
         </li>

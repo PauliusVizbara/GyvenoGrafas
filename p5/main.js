@@ -20,7 +20,7 @@ var backgroundColor = "#f9f9f9";
 var drawGrid = false;
 var gridSize = 30;
 var gridPoints = [];
-
+var paintColor;
 
 window.onload = function() {
   document.getElementById("AddVertexButton").addEventListener('click', addNewVertex);
@@ -34,8 +34,16 @@ window.onload = function() {
 
   authorName();
 
+  paintColor = document.getElementById("PaintColorPicker").value;
+
+
+
+
 }
 
+function changePaintColor() {
+  paintColor = document.getElementById("PaintColorPicker").value;
+}
 
 function createGridPoints() {
   gridPoints = [];
@@ -52,12 +60,21 @@ function createGridPoints() {
 }
 
 function snapVertex(index) {
-    var maximumDistance = Math.sqrt(2 * Math.pow(gridSize / 2, 2));
+  var maximumDistance = Math.sqrt(2 * Math.pow(gridSize / 2, 2));
   for (var j = 0; j < gridPoints.length; j++) {
     if (dist(mouseX, mouseY, gridPoints[j].x, gridPoints[j].y) <= maximumDistance) {
-      vertices[index].x = gridPoints[j].x;
-      vertices[index].y = gridPoints[j].y;
-      break;
+      var adjacentToOtherVertex = false;
+      for (var i = 0; i < vertices.length; i++) {
+        if (index != vertices[i].index && dist(vertices[i].x, vertices[i].y, gridPoints[j].x, gridPoints[j].y) <= maximumDistance*2+3) {
+          adjacentToOtherVertex = true;
+          break;
+        }
+      }
+      if (!adjacentToOtherVertex) {
+        vertices[index].x = gridPoints[j].x;
+        vertices[index].y = gridPoints[j].y;
+        break;
+      }
     }
   }
 }
@@ -123,8 +140,8 @@ function addNewVertex() {
   var x;
   var y;
   while (count < 100000) {
-    x = Math.floor(Math.random() * window.innerWidth/3) + window.innerWidth / 3;
-    y = Math.floor(Math.random() * window.innerHeight/3) + window.innerHeight / 3;
+    x = Math.floor(Math.random() * window.innerWidth / 3) + window.innerWidth / 3;
+    y = Math.floor(Math.random() * window.innerHeight / 3) + window.innerHeight / 3;
     for (var i = 0; i < vertices.length; i++) {
       if (dist(x, y, vertices[i].x, vertices[i].y) <= radius * 2 + 5) {
         spawnedNear = true;
@@ -138,8 +155,6 @@ function addNewVertex() {
     }
     count++;
   }
-
-
 }
 
 
@@ -189,7 +204,7 @@ $(window).resize(function() {
 
 // Draw on the canvas.
 function draw() {
-
+  console.log(paintColor);
   background(backgroundColor);
 
   if (drawGrid) {
@@ -208,7 +223,7 @@ function draw() {
   if (verticeDeleteButton != null) verticeDeleteButton.draw();
 
   if (drawnLines.length > 0) {
-    stroke("#FF0000");
+    stroke(paintColor);
     strokeWeight(4);
 
     for (var i = 0; i < drawnLines.length; i += 4) {

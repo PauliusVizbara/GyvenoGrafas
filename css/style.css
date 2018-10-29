@@ -29,6 +29,10 @@ body {
   /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+#PaintColorPicker, #PaintColorPicker *{
+  padding: 0;
+  border: 0;
+}
 
 #OutputWindow {
   position: fixed;
