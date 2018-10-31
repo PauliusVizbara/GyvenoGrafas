@@ -140,8 +140,9 @@ function addNewVertex() {
   var x;
   var y;
   while (count < 100000) {
-    x = Math.floor(Math.random() * window.innerWidth / 3) + window.innerWidth / 3;
-    y = Math.floor(Math.random() * window.innerHeight / 3) + window.innerHeight / 3;
+    spawnedNear = false;
+    x = Math.floor(Math.random() * (window.innerWidth/3)) + (window.innerWidth/3);
+    y = Math.floor(Math.random() * (window.innerHeight/3)) + (window.innerHeight/3);
     for (var i = 0; i < vertices.length; i++) {
       if (dist(x, y, vertices[i].x, vertices[i].y) <= radius * 2 + 5) {
         spawnedNear = true;
@@ -479,6 +480,7 @@ function createGraphFromGInput() {
   for (var i = 0; i < lines.length; i++) {
     if (lines[i] == "") {
       lines.splice(i, 1);
+      i--;
     }
   }
 
