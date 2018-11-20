@@ -35,6 +35,7 @@ function authorName(){
   //authorText.classList.add("Unselectable");
   authorText.appendChild(document.createTextNode("Author: Paulius Vizbara"));
   authorText.style.position = "absolute";
+  authorText.classList.add("Unselectable");
   authorText.style.bottom = "5px";
   authorText.style.right = "5px";
   authorText.style.color = "#111111";
