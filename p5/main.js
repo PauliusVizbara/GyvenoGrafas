@@ -65,7 +65,8 @@ function handleFile(){
 
 }
 function exportCurrentGMatrix(){
-
+    let fileName = document.getElementById("NameFileInput").value;
+    if ( fileName == null || fileName.length === 0) fileName = "G-matrix";
     let dataSeparator = document.getElementById("TextSeparator").value;
     if ( dataSeparator == null || dataSeparator.length === 0) dataSeparator = " ";
     if ( dataSeparator.toLowerCase() === "tab") dataSeparator = '\t';
@@ -84,7 +85,7 @@ function exportCurrentGMatrix(){
     }
     var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
 
-    saveAs(blob, "G-matrix.txt");
+    saveAs(blob, fileName + ".txt");
 }
 function createGraphFromText(text, separator){
     var lines = text.split('\n');
