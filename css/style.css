@@ -128,3 +128,12 @@ body {
   background: #1e324e;
   cursor: pointer;
 }
+
+#ExportButton{
+  padding: 10px;
+  margin: 20px;
+  background-color: #FFA000;
+  border: 0;
+  color: white;
+  font-weight: bold;
+}

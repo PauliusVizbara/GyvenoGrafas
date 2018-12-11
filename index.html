@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <div style="top:20px;left:350px;" class="DragElementBody" id="FreePaintOptions">
+    <div style="top:200px;left:350px;" class="DragElementBody" id="FreePaintOptions">
       <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
       <div class="DragElementAnchor Unselectable" id="FreePaintOptions-mover"> Paint </div>
       <div class="DragElementContent Unselectable" style="resize:none">
@@ -65,6 +65,20 @@
 
       </div>
     </div>
+
+
+  <div style="top:60px;left:500px;" class="DragElementBody" id="FileInput">
+    <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
+    <div class="DragElementAnchor Unselectable" id="FileInput-mover"> File input </div>
+    <div class="DragElementContent Unselectable" style="resize:none">
+      <input style="padding: 10px;" type="file" id="fileUploader"  onchange="handleFile()">
+      <br>
+      Data separator <input style="width:30px" type="text" id="TextSeparator" > <br>
+      <button id="ExportButton" type="button" class="Unselectable" onclick="exportCurrentGMatrix()"> Export G matrix  </button>
+
+
+    </div>
+  </div>
 
     <nav>
       <ul class="Unselectable ">

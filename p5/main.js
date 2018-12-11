@@ -31,13 +31,94 @@ window.onload = function() {
   dragElement(document.getElementById("G-UserInput"));
   dragElement(document.getElementById("FreePaintOptions"));
   dragElement(document.getElementById("GridOptions"));
-
+  dragElement(document.getElementById("FileInput"));
   authorName();
 
   paintColor = document.getElementById("PaintColorPicker").value;
 
 
 
+
+}
+
+
+function handleFile(){
+  var fileInput = document.getElementById("fileUploader");
+  var dataSeparator = document.getElementById("TextSeparator").value;
+  if ( dataSeparator == null || dataSeparator.length === 0) dataSeparator = " ";
+  if ( dataSeparator.toLowerCase() === "tab") dataSeparator = '\t';
+    for (let i = 0; i < fileInput.files.length; i++) {
+        var file = fileInput.files[i];
+
+        var reader = new FileReader();
+        reader.onload = function(){
+            var text = reader.result;
+            console.log(text);
+            console.log("Seperate by:(" + dataSeparator + ")");
+            createGraphFromText(text, dataSeparator);
+
+        };
+        reader.readAsText(file);
+
+
+    }
+
+}
+function exportCurrentGMatrix(){
+
+}
+function createGraphFromText(text, separator){
+    var lines = text.split('\n');
+
+    for (var i = 0; i < lines.length; i++) {
+        if (lines[i] == "") {
+            lines.splice(i, 1);
+            i--;
+        }
+    }
+
+    var vertexCount = 0;
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].split(separator);
+        for (var j = 0; j < line.length; j++) {
+            if (line[j] > vertexCount) vertexCount = line[j];
+        }
+    }
+
+    if (vertexCount == 0) return;
+    vertices = [];
+    connections = [];
+
+    for (var i = 0; i < vertexCount; i++) {
+
+        addNewVertex();
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+        var GRow = lines[i].split(separator);
+        console.log("Heyy " + GRow.length);
+        for (var j = 0; j < GRow.length; j++) {
+            var connectionExists = false;
+            for (var k = 0; k < connections.length; k++) {
+                if (connections[k].hasVertices(i, GRow[j] - 1)) {
+                    connectionExists = true;
+                    break;
+                }
+            }
+            if (!connectionExists)
+                connections.push(new Connection(i, GRow[j] - 1));
+        }
+    }
+
+    for (var i = 0; i < connections.length; i++) {
+      let firstIndex = connections[i].firstVertexIndex;
+      let secondIndex = connections[i].secondVertexIndex;
+        if ( vertices[firstIndex] == null || vertices[secondIndex] == null){
+          connections = [];
+          vertices = [];
+          alert("Error, clearing the graph");
+        }
+    }
 
 }
 
@@ -205,7 +286,6 @@ $(window).resize(function() {
 
 // Draw on the canvas.
 function draw() {
-  console.log(paintColor);
   background(backgroundColor);
 
   if (drawGrid) {
