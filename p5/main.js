@@ -115,10 +115,11 @@ function createGraphFromText(text, separator){
     }
 
     for (var i = 0; i < lines.length; i++) {
-        if (lines[i] == "") continue;
+        console.log( lines[i].length);
+        if ( !lines[i] || lines[i] === "\n" || lines[i] === "\r" ) continue;
         var GRow = lines[i].split(separator);
         for (var j = 0; j < GRow.length; j++) {
-            if (GRow[j] === "") continue;
+            if ( !GRow[j] ||  GRow[j] === "") continue;
             var connectionExists = false;
             for (var k = 0; k < connections.length; k++) {
                 if (connections[k].hasVertices(i, GRow[j] - 1)) {
