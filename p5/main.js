@@ -66,16 +66,35 @@ function handleFile(){
 }
 function exportCurrentGMatrix(){
 
+    let dataSeparator = document.getElementById("TextSeparator").value;
+    if ( dataSeparator == null || dataSeparator.length === 0) dataSeparator = " ";
+    if ( dataSeparator.toLowerCase() === "tab") dataSeparator = '\t';
+
+    display_Gmatrix();
+
+    var data = "";
+    for (var i = 0; i < vertices.length; i++) {
+
+        for (var j = 0; j < G[i].length; j++) {
+            data += G[i][j] + 1;
+            if (j != G[i].length - 1) data += dataSeparator;
+
+        }
+        data+= '\n';
+    }
+    var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+
+    saveAs(blob, "G-matrix.txt");
 }
 function createGraphFromText(text, separator){
     var lines = text.split('\n');
 
-    for (var i = 0; i < lines.length; i++) {
+    /*for (var i = 0; i < lines.length; i++) {
         if (lines[i] == "") {
             lines.splice(i, 1);
             i--;
         }
-    }
+    }*/
 
     var vertexCount = 0;
     for (var i = 0; i < lines.length; i++) {
@@ -95,9 +114,10 @@ function createGraphFromText(text, separator){
     }
 
     for (var i = 0; i < lines.length; i++) {
+        if (lines[i] == "") continue;
         var GRow = lines[i].split(separator);
-        console.log("Heyy " + GRow.length);
         for (var j = 0; j < GRow.length; j++) {
+            if (GRow[j] === "") continue;
             var connectionExists = false;
             for (var k = 0; k < connections.length; k++) {
                 if (connections[k].hasVertices(i, GRow[j] - 1)) {
