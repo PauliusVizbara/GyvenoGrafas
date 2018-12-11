@@ -117,7 +117,7 @@ function createGraphFromText(text, separator){
     }
 
     for (var i = 0; i < lines.length; i++) {
-        console.log( lines[i].length);
+
         if ( !lines[i] || lines[i] === "\n" || lines[i] === "\r" ) continue;
         var GRow = lines[i].split(separator);
         for (var j = 0; j < GRow.length; j++) {
@@ -141,9 +141,11 @@ function createGraphFromText(text, separator){
           connections = [];
           vertices = [];
           alert("Error, clearing the graph");
+          return;
         }
     }
 
+    display_Gmatrix();
 }
 
 function changePaintColor() {
