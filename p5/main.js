@@ -81,14 +81,16 @@ function exportCurrentGMatrix(){
             if (j != G[i].length - 1) data += dataSeparator;
 
         }
-        data+= '\n';
+        data+= "\r\n";
     }
     var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
 
     saveAs(blob, fileName + ".txt");
 }
 function createGraphFromText(text, separator){
-    var lines = text.split('\n');
+   //var reg = /\n|\r|\n\r/;
+    var lines = text.split('\r\n');
+
 
     /*for (var i = 0; i < lines.length; i++) {
         if (lines[i] == "") {
