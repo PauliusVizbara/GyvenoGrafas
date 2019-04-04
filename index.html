@@ -33,16 +33,15 @@
     <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
     <div class="DragElementAnchor Unselectable" id="GridOptions-mover"> Grid </div>
     <div style="resize:none;" class="DragElementContent Unselectable">
-      <div> <label class="switch">
+      <label class="switch">
         <input type="checkbox" onchange="toggleGrid()">
         <span class="slider round"></span>
-      </div>
       </label>
       </div>
     </div>
 
 
-    <div style="top:80px;left:800px;min-width:300px;display:none;" class="DragElementBody" id="G-UserInput">
+    <div style="top:80px;left:800px;min-width:300px;" class="DragElementBody" id="G-UserInput">
       <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
       <button style="margin-right:50px" type="button" class="CloseButton Unselectable" onclick="createGraphFromGInput()"> + </button>
       <div class="DragElementAnchor Unselectable" id="G-UserInput-mover"> G-Matrix input </div>
@@ -51,7 +50,7 @@
       </div>
     </div>
 
-    <div style="top:200px;left:350px;" class="DragElementBody" id="FreePaintOptions">
+    <div style="top:200px;left:350px;display:none;" class="DragElementBody" id="FreePaintOptions">
       <button type="button" class="CloseButton Unselectable" onclick="hideElement(this.parentNode.id)"> x </button>
       <div class="DragElementAnchor Unselectable" id="FreePaintOptions-mover"> Paint </div>
       <div class="DragElementContent Unselectable" style="resize:none">
